@@ -3,20 +3,20 @@ from pydantic import BaseModel
 import joblib
 import uvicorn
 
-app = FastAPI(title="API Company", description="with FastAPI by Daniele Grotti", version="1.0")
+app = FastAPI(title="API Company", description="with FastAPI by Waldo Bird", version="1.0")
 
 ## Basemodel
-class CompanyData(BaseModel):
-    tv: float =147
-    radio: float =23
-    newspaper: float =30
+class StartupData(BaseModel):
+    rdspend: float =73721
+    administration: float =121344
+    marketingspend: float =211025
 
 ## blocco per la cache del mio modello
 @app.on_event("startup")
 def startup_event():
     "modello *.pkl di ML"
     global model # la varibile dovrà essere globale
-    model = joblib.load("company.pkl")
+    model = joblib.load("startup.pkl")
     print(" MODEL LOADED!!")
     return model
 
@@ -29,9 +29,9 @@ def home():
 
 ## secca GET per streamlit o chiamate esterne
 @app.get("/predict")
-async def predictget(data:CompanyData=Depends()):
+async def predictget(data:StartupData=Depends()):
     try:
-        X = [[data.tv, data.radio, data.newspaper]]
+        X = [[data.rdspend, data.administration, data.marketingspend]]
         y_pred = model.predict(X)[0]
         res = round(y_pred,2)
         return {'prediction':res}
@@ -40,9 +40,9 @@ async def predictget(data:CompanyData=Depends()):
 
 ## secca POST per streamlit o chiamate esterne
 @app.post("/predict")
-async def predictpost(data:CompanyData):
+async def predictpost(data:StartupData):
     try:
-        X = [[data.tv, data.radio, data.newspaper]]
+        X = [[data.rdspend, data.administration, data.marketingspend]]
         y_pred = model.predict(X)[0]
         res = round(y_pred,2)
         return {'prediction':res}
