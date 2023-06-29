@@ -5,14 +5,14 @@ import json
 def main():
     st.title("API Frontend - POST-GET Debugger")
     url_API =st.text_input("inserisci url dell'api","http://localhost:8000/predict")
-    tv = st.number_input("Inserisci R&D Spend")
-    radio = st.number_input("Inserisci Administration")
-    newspaper = st.number_input("Inserisci Marketing Spend")
+    rdspend = st.number_input("Inserisci R&D Spend")
+    administration = st.number_input("Inserisci Administration")
+    marketingspend = st.number_input("Inserisci Marketing Spend")
 
     ############## GET REQUEST #################
     if st.button("Predict with GET"):
         url = url_API
-        url2 = f"?tv={tv}&radio={radio}&newspaper={newspaper}"
+        url2 = f"?R&D Spend={rdspend}&Administration={administration}&Marketing Spend={marketingspend}"
         link = url+url2
         st.write('"{}"'.format(link))
         response = requests.get(link)
@@ -25,9 +25,9 @@ def main():
         response =requests.post(url,
                                 headers={"Content-Type": "application/json"},
                                 data = json.dumps({
-                                                   "tv":tv,
-                                                   "radio":radio,
-                                                   "newspaper":newspaper,
+                                                   "R&D Spend":rdspend,
+                                                   "Administration":administration,
+                                                   "Marketing Spend":marketingspend,
                                                    })
                                 )
         result =response.json()
