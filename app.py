@@ -5,9 +5,9 @@ import json
 def main():
     st.title("API Frontend - POST-GET Debugger")
     url_API =st.text_input("inserisci url dell'api","http://localhost:8000/predict")
-    tv = st.number_input("Inserisci tv")
-    radio = st.number_input("Inserisci radio")
-    newspaper = st.number_input("Inserisci newspaper")
+    tv = st.number_input("Inserisci R&D Spend")
+    radio = st.number_input("Inserisci Administration")
+    newspaper = st.number_input("Inserisci Marketing Spend")
 
     ############## GET REQUEST #################
     if st.button("Predict with GET"):
