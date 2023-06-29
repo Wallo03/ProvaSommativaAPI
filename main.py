@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import joblib
 import uvicorn
 
-app = FastAPI(title="API Company", description="with FastAPI by Waldo Bird", version="1.0")
+app = FastAPI(title="Startup of BirdIT", description="with FastAPI by Waldo Bird", version="1.0")
 
 ## Basemodel
 class StartupData(BaseModel):
